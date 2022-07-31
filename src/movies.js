@@ -2,9 +2,9 @@
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
 // How could you "clean" a bit this array and make it unified (without duplicates)?
 
-function getAllDirectors(moviesArray) {
+function getAllDirectors(movies) {
     let directorsArr = [];
-    moviesArray.map(movie => directorsArr.push(movie.director));
+    movies.map(movie => directorsArr.push(movie.director));
     return directorsArr;
 }
 
@@ -46,21 +46,32 @@ function orderByYear(moviesArray) {
         } else {
             return a.year - b.year;
         }
-    });
-    
+    });    
     return orderedMoviesArr;
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(moviesArray) {
-    let moviesArrCopy = moviesArray.map((movie) => movie);
     let titlesArr = [];
-    moviesArrCopy.map(movie => titlesArr.push(movie.title));
+    moviesArray.map(movie => titlesArr.push(movie.title));
     return titlesArr.sort().slice(0, 20);
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+    let moviesArrCopy = moviesArray.map((movie) => movie);
+
+    let moviesArrWithDurationInminutes = moviesArrCopy.map((movie) => {
+        movie.duration = movie.duration.split(' ');
+        let parsedDuration = movie.duration.map(ele => parseInt(ele));
+        parsedDuration[0] *= 60;
+        let durationToMinutes = parsedDuration.reduce((a, b)=> a + b, 0);
+        movie.duration = durationToMinutes;
+        return movie;;
+    });
+    console.log(moviesArrWithDurationInminutes);
+    return moviesArrWithDurationInminutes;
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
